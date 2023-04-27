@@ -1,40 +1,58 @@
-﻿//int coinFlip = new Random().Next(0, 2);
-//Console.WriteLine((coinFlip > 0 ? "Heads" : "Tails" ));
+﻿/**
+ Ip must contain 4 numbers.
+ Each number must not contain leading zeroes
+ Each number must be in range of 0 to 255
 
+if ip has 4 numbers
+and 
+if number does not containt leading zeroes
+and
+if number is in range of 0 to 255
 
-string permission = "Manager"; //Admin | Manager
-int level = 23;
+    then ip is valid
 
-Boolean admin = permission.Contains("Admin");
-Boolean manager = permission.Contains("Manager");
-Boolean isHighestLevel = level > 55;
-Boolean isLowestLevel = level >= 20;
-Boolean isLowerThan55 = level <= 55;
-Boolean isLowerThan20 = level < 20;
+    else ip is invalid
 
-if (admin)
+ */
+
+string ipv4Input = "1.1.1.255";
+if (validateLength())
 {
-    if (isHighestLevel)
-    {
-        Console.WriteLine("Welcome, Super Admin User");
-    }
-    else if (isLowerThan55)
-    {
-        Console.WriteLine("Welcome, admin user");
-    }
+    Console.WriteLine(ipv4Input);
 }
-else if (manager)
+
+
+Boolean validateLength()
 {
-    if (isLowestLevel)
+    string[] address = ipv4Input.Split('.');
+    if (address.Length == 4 && validateNumber(address) && validRange(address))
     {
-        Console.WriteLine("Contact an admin for access");
+        return true;
     }
-    else if (isLowerThan20)
-    {
-        Console.WriteLine("You do not have suffiecient priviliges.");
-    }
+    return false;
 }
-else
+
+Boolean validateNumber(String[] address)
 {
-    Console.WriteLine("You do not have sufficient privileges.");
+    foreach (string number in address)
+    {
+        if (number.Length > 1 && number.StartsWith('0'))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+Boolean validRange(String[] address)
+{
+    foreach (string numberString in address)
+    {
+        int number = int.Parse(numberString);
+        if (number < 0 || number > 255)
+        {
+            return false;
+        }
+    }
+    return true;
 }
